@@ -20,6 +20,8 @@ h1,h2,h3,p{
   background-size:contain;
   background-position: center;
   height: auto;
+  width: 90%;
+  margin: auto;
 }
 
 .mask{

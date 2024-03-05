@@ -51,12 +51,12 @@ const Body = () => {
             </div>
 
             <div className="question px-[5%]">
-                <h1 className="text-2xl font-bold mb-4">Why personalized nutrition?</h1>
-                <p className="text-1xl">From picky eaters to food allergies, every child&apos;s nutritional needs are different. Our platform uses AI technology to provide personalized nutrition recommendations for kids, helping parents ensure their little ones get the nutrients they need to grow up healthy and strong.</p>
+                <h1 className="text-2xl font-bold mb-4 px-2">Why personalized nutrition?</h1>
+                <p className="text-1xl px-2">From picky eaters to food allergies, every child&apos;s nutritional needs are different. Our platform uses AI technology to provide personalized nutrition recommendations for kids, helping parents ensure their little ones get the nutrients they need to grow up healthy and strong.</p>
             </div>
 
             <div className="concerns px-[5%] py-8">
-                <h1 className="text-2xl font-bold mb-4">Common Health Concerns</h1>
+                <h1 className="text-2xl font-bold mb-4 px-2">Common Health Concerns</h1>
                 <div className="boxes">
                 <div className="box">
                     <p className="font-bold">Picky Eaters</p>
