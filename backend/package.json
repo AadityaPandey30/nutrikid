@@ -16,6 +16,7 @@
     "mongodb": "^6.4.0",
     "mongoose": "^8.2.1",
     "morgan": "^1.10.0",
+    "nodemon": "^3.1.0",
     "openai": "^4.28.4",
     "validator": "^13.11.0"
   }
