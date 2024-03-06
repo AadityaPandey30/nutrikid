@@ -1,4 +1,4 @@
-
+import Blog from "./smallComponents/Blog";
 
 const Body = () => {
 
@@ -86,6 +86,8 @@ const Body = () => {
                   Get Started
                 </button>
             </div>
+
+            <Blog />
             
         </div>
     )

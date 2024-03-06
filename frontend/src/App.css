@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
 h1,h2,h3,p{
   margin: 5px 0px;
 }
+
 
 .bar{
   font-size: small;
@@ -12,6 +16,8 @@ h1,h2,h3,p{
   width: 80%;
   margin: auto;
   max-width: 1600px;
+  height: fit-content;
+  min-height: 100vh;
 }
 
 .intro{
@@ -40,14 +46,40 @@ h1,h2,h3,p{
   padding: 2%;
   flex-basis: 25%;
   max-width: 270px;
+  margin: 8px;
 }
 
+.login{
+  font-family: "Inter", sans-serif;
+}
 
+::-webkit-scrollbar-track {
+  display: none;
+  width: 1px;
+}
+
+.abt-image{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+  object-fit: cover; 
+}
 
 
 @media(max-width:768px)
 {
 .bar{
   display: block;
+}
+.boxes{
+  flex-direction: column;
+  width: fit-content;
+  margin: auto;
+  padding: 0;
+}
+.box{
+  max-width: 600px;
 }
 }
