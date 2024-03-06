@@ -68,6 +68,70 @@ h1,h2,h3,p{
 }
 
 
+/* Chatbot.css */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) rotate(5deg);
+  }
+  40% {
+    transform: translateY(-30px) rotate(-10deg);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+.chat-cont {
+  position: relative;
+}
+
+.chatbot {
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  width: 330px;
+  height: 380px;
+  background-color: #F5BF26;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: opacity 1s, width 3s;
+  opacity: 1;
+}
+
+.chatbot-inner {
+  background-color: rgb(255, 233, 146);
+  border-radius: 15px;
+  height: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+.robo {
+  position: fixed;
+  bottom: -50px;
+  right: 220px;
+  z-index: 2;
+  width: 20%;
+  height: auto;
+  cursor: pointer;
+  animation: bounce 3s infinite;
+  transition: right 2s ease; /* Add transition for smooth position change */
+}
+
+.robo-hidden {
+  right: 10px;
+  bottom: -4px;
+}
+
+.robo:hover {
+  opacity: 0.9;
+}
+
+
+
+
+
 @media(max-width:768px)
 {
 .bar{

@@ -1,4 +1,5 @@
 import Blog from "./smallComponents/Blog";
+import Chatbot from "./smallComponents/chatbot";
 
 const Body = () => {
 
@@ -87,6 +88,8 @@ const Body = () => {
                 </button>
             </div>
 
+            <Chatbot />
+            
             <Blog />
             
         </div>
