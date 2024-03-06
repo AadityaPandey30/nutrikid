@@ -4,7 +4,7 @@ const path = require("path");
 const userRouter = require("./routes/userRoutes");
 const AppError = require("./utils/appError");
 const chatRouter = require("./routes/chatRoutes");
-
+const blogRouter=require("./routes/blogRoutes");
 const app = express();
 app.use(express.json());
 
@@ -21,6 +21,7 @@ app.use((req, res, next) => {
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/chat", chatRouter);
+app.use("/api/v1/blog",blogRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Could not find ${req.originalUrl} on this Server!`, 404));

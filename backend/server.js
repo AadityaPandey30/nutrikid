@@ -23,7 +23,7 @@ mongoose
   })
   .then((con) => {
     console.log("DB connection successful!");
-    console.log(con.connection);
+    // console.log(con.connection);
   })
   .catch((err) => console.error(err));
 
