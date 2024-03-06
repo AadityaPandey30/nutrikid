@@ -1,4 +1,5 @@
 import about from "../images/about.png"
+import Chatbot from "./smallComponents/chatbot";
 
 
 const About = () => {
@@ -33,6 +34,7 @@ const About = () => {
 
                     Join us on this exciting voyage toward creating a community where the joy of food and optimal health converge. Together, let&apos;s build a foundation for your child&apos;s well-being that lasts a lifetime.</p>
             </div>
+            <Chatbot />
         </div>
     )
 }

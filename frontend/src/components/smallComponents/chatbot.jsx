@@ -15,8 +15,9 @@ const Chatbot = () => {
     <div className="chat-cont">
       {showChatbot && (
         <div className='chatbot p-5'>
-          <div className="chatbot-inner p-6">
-            <div className="text-2xl font-bold "></div>
+          <div className="chatbot-inner p-3 pt-1">
+            <h1 className="text-2xl font-bold text-green-900 text-center">Need Health tips?</h1>
+            <div className='h-[87%] bg-yellow-100 my-3 rounded-[20px]'></div>
           </div>
         </div>
       )}

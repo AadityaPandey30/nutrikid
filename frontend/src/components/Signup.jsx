@@ -11,7 +11,7 @@ const Signup = () =>{
                 <div className="text-right">
                 <button className="rounded-[8px] px-7 py-2 bg-[#F5BF26] font-bold text-black">SignUp</button>
                 </div>
-                <p className="py-4 px-1 text-left">Already have an account? <a href="./login" className="underline text-blue-900">Login</a> here</p>
+                <p className="py-4 px-1 text-center">Already have an account? <a href="./login" className="underline text-yellow-700">Login</a> here</p>
                 
             </div>
         </div>

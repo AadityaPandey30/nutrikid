@@ -97,6 +97,7 @@ h1,h2,h3,p{
   overflow: hidden;
   transition: opacity 1s, width 3s;
   opacity: 1;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .chatbot-inner {
@@ -128,6 +129,38 @@ h1,h2,h3,p{
   opacity: 0.9;
 }
 
+/* Suggest.css */
+.suggest {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 20px;
+}
+
+.square {
+  flex: 0 0 auto;
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.square.active {
+  opacity: 0.5;
+}
+
+.code-section {
+  flex: 0 0 100%;
+  padding: 20px;
+  scroll-snap-align: start;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.code-section.active {
+  opacity: 1;
+}
 
 
 

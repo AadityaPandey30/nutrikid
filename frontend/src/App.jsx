@@ -6,6 +6,7 @@ import Body from './components/Body'
 import About from './components/About'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import Suggest from "./components/Suggest"
 
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
           <Route path='/about' element={<About />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />}/>
+          <Route path='/suggest' element={<Suggest />}/>
+
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

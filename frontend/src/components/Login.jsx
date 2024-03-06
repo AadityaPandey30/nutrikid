@@ -10,7 +10,7 @@ const Login = () =>{
                 <div className="text-right">
                     <button className="rounded-[8px] px-7 py-2 bg-[#F5BF26] font-bold text-black">Login</button>
                 </div>
-                <p className="py-4 px-1 text-left">Don&apos;t have an account? <a href="./signup" className="underline text-blue-900">SignUp</a> here</p>
+                <p className="py-4 px-1 text-center">Don&apos;t have an account? <a href="./signup" className="underline text-yellow-700">SignUp</a> here</p>
             </div>
         </div>
     )
