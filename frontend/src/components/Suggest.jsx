@@ -1,7 +1,29 @@
-import { useState } from 'react';
+import  { useState, useRef } from 'react';
 
 const Suggest = () => {
   const [activeSection, setActiveSection] = useState(null);
+  
+  const [inputText, setInputText] = useState('');
+  const [elements, setElements] = useState([]);
+
+  const inputRef = useRef(null);
+
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  const handleEnterPress = (e) => {
+    if (e.key === 'Enter') {
+      setElements((prevElements) => [...prevElements, inputText]);
+      setInputText('');
+      inputRef.current.focus();
+    }
+  };
+
+  const removeElement = (index) => {
+    setElements((prevElements) => prevElements.filter((_, i) => i !== index));
+  };
+
 
   const scrollToSection = (sectionId) => {
     setActiveSection(sectionId);
@@ -11,29 +33,72 @@ const Suggest = () => {
     }
   };
 
+
+
   return (
-    <div className="container">
-      
-      <div className={`square ${activeSection === 'section1' ? 'active' : ''} `} onClick={() => scrollToSection('section1')}>
-        Square 1
-      </div>
-      <div className={`square ${activeSection === 'section2' ? 'active' : ''}`} onClick={() => scrollToSection('section2')}>
-        Square 2
-      </div>
-      <div className={`square ${activeSection === 'section3' ? 'active' : ''}`} onClick={() => scrollToSection('section3')}>
-        Square 3
-      </div>
-      <div className='suggest'>
-      <div className={`code-section ${activeSection === 'section1' ? 'active' : ''}`} id="section1">
-        <h2>First Code</h2>
-      </div>
+    <div className="container px-[5%] py-[7%]">
 
-      <div className={`code-section ${activeSection === 'section2' ? 'active' : ''}`} id="section2">
-        <h2>Second Code</h2>
+      <div className='flex justify-center'>
+        <div className={`square ${activeSection === 'section1' ? 'active' : ''} `} onClick={() => scrollToSection('section1')}> </div>
+        <div className={`square ${activeSection === 'section2' ? 'active' : ''}`} onClick={() => scrollToSection('section2')}> </div>
       </div>
+      <hr className='w-[90px] justify-center m-auto my-2' />
+      <div className='suggest h-fit min-h-[50vh]'>
+      <div className={`code-section ${activeSection === 'section1' ? 'active' : ''} text-center`} id="section1">
+                    <h2 className='text-3xl mt-8'>Select by Region</h2>
+                    <div className='filters flex justify-between'>
+                        <div className='filter md:py-8 py-2 w-[200px]'>
+                            <h1 className='text-2xl'>Region</h1>
+                            <select name="language" id="language" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
+                                <option value="middleeastern">Middle Eastern</option>
+                                <option value="indiansubcontinent">Indian Subcontinent</option>
+                            </select>
+                        </div>
+                        <div className='filter md:py-8 py-2 w-[200px]'>
+                            <h1 className='text-2xl'>Country</h1>
+                            <select name="language" id="language" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
+                                <option value="india">India</option>
+                                <option value="australia">Australia</option>
+                                <option value="democraticrepublic">Democatic Republic</option>
+                            </select>
+                        </div>
+                        <div className='filter md:py-8 py-2 w-[200px]'>
+                            <h1 className='text-2xl'>Recipe</h1>
+                            <select name="language" id="language" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
+                                <option value="middleeastern">Middle Eastern</option>
+                                <option value="indiansubcontinent">Indian Subcontinent</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className='text-center'>
+                    <button className="bg-[#F5BF26] text-black font-bold px-20 py-2 mx-auto rounded-[10px] hover:bg-[#ffdb76]">Submit</button>
+                    </div>
+                </div>
 
-      <div className={`code-section ${activeSection === 'section3' ? 'active' : ''}`} id="section3">
-        <h2>Third Code</h2>
+                <div className={`code-section ${activeSection === 'section2' ? 'active' : ''} text-center`} id="section2">
+        <h2 className='text-3xl mt-8'>Make your Recipe</h2>
+        <input
+          type='text'
+          className='px-3 py-2 rounded-[8px] bg-yellow-100 mt-5 w-[250px]'
+          placeholder='Enter Ingredients'
+          value={inputText}
+          onChange={handleInputChange}
+          onKeyPress={handleEnterPress}
+          ref={inputRef}
+        />
+        <div className='p-4 my-7 bg-yellow-100 w-[50%] min-w-[300px] m-auto rounded-[10px] min-h-20 h-fit'>
+          {elements.map((element, index) => (
+            <div key={index} className='border pl-3 pr-2 py-2 m-1 inline-block relative bg-yellow-500 rounded-[6px]'>
+              {element}
+              <button className='cross-button ml-3 px-1' onClick={() => removeElement(index)}>
+                &#x2715;
+              </button>
+            </div>
+          ))}
+        </div>
+        <div className='text-center'>
+          <button className="bg-[#F5BF26] text-black font-bold px-20 py-2 mx-auto rounded-[10px] hover:bg-[#ffdb76]">Cook</button>
+        </div>
       </div>
       </div>
     </div>

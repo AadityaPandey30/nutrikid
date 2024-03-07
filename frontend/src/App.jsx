@@ -7,6 +7,7 @@ import About from './components/About'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Suggest from "./components/Suggest"
+import Connect from './components/Connect'
 
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<Signup />}/>
           <Route path='/suggest' element={<Suggest />}/>
+          <Route path='/connect' element={<Connect />}/>
+
 
         </Routes>
         {/* <Footer /> */}
