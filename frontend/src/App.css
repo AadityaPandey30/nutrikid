@@ -224,6 +224,15 @@ select:focus{
   gap: 20px;
 }
 
+.healthy{
+  background-image: url("./images/family.jpg");
+  border-radius: 15px;
+  padding: 140px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 
 @media(max-width:768px)
 {
