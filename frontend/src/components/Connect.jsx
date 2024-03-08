@@ -46,34 +46,6 @@ const Connect = () => {
     }
   };
 
-  const handlePostComment = async (questionId, comment) => {
-    try {
-      const token = localStorage.getItem('jwt').trim();
-      const response = await axios.post(
-
-        `http://localhost:8000/api/v1/chat/community/${questionId}`,
-        { body: comment },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Add a space between "Bearer" and the token
-          },
-        }
-      );
-      // Update the comments of the specific question in the questionsList state
-      setQuestionsList(questionsList.map(questionItem => {
-        if (questionItem._id === questionId) {
-          return {
-            ...questionItem,
-            comments: [...questionItem.comments, response.data]
-          };
-        }
-        return questionItem;
-      }));
-    } catch (error) {
-      console.error("Error posting comment:", error);
-    }
-  };
-
   return (
     <div className="container px-[5%] py-8">
       <div className="community">
@@ -101,32 +73,10 @@ const Connect = () => {
         </div>
 
         <div className="mt-8">
-          {questionsList.map((questionItem) => (
-            <div key={questionItem._id} className="border p-4 mb-4">
+          {questionsList.map((questionItem, index) => (
+            <div key={index} className="border p-4 mb-4">
               <h3 className="text-lg font-bold">{questionItem.body}</h3>
               <p className="text-gray-600 mt-2">{questionItem.createdAt}</p>
-              {/* Input field for posting comments */}
-              <div>
-                <input
-                  type="text"
-                  placeholder="Write a comment..."
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                />
-                <button
-                  onClick={() => handlePostComment(questionItem._id, comment)}
-                >
-                  Post
-                </button>
-              </div>
-              {/* Render comments */}
-              <div>
-                {questionItem.comments.map(comment => (
-                  <div key={comment._id}>
-                    <p>{comment.body}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           ))}
         </div>
