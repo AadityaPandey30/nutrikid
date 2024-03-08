@@ -1,33 +1,51 @@
-
-// import { useState, useEffect } from 'react';
-// import axios from 'axios';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Blog = () => {
-//   const [blogData, setBlogData] = useState([]);
+  const [blogPosts, setBlogPosts] = useState([]); // State to store the fetched blog posts
+  const [loading, setLoading] = useState(true); // State to manage loading status
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await axios.get('BACKEND_API_URL');
-//         setBlogData(response.data);
-//       } catch (error) {
-//         console.error('Error fetching blog data:', error);
-//       }
-//     };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Retrieve the token from localStorage
+        const token = localStorage.getItem('jwt');
+        const config = {
+          headers: {
+            Authorization: `Bearer${token}` // Include the token in the Authorization header
+          }
+        };
+        
+        // Pass config with headers to axios.get
+        const response = await axios.get('http://localhost:8000/api/v1/blog/getallblog', config);
+        setBlogPosts(response.data.data.blogPosts); // Update state with the received blog posts
+        setLoading(false); // Set loading to false after fetching data
+      } catch (error) {
+        console.error('Error fetching blog data:', error);
+        setLoading(false); // Set loading to false in case of error
+      }
+    };
 
-//     fetchData();
-//   }, []); 
+    fetchData(); // Fetch blog data when the component mounts
+  }, []); // Empty dependency array ensures that useEffect runs only once after the component mounts
 
   return (
     <div className="px-[5%]">
-      {/* {blogData.map((post) => (
-        <div key={post._id}>
-          <h2>{post.heading}</h2>
-          <p>{post.content}</p>
-        </div>
-      ))} */}
-
-      <h1>Blog Section</h1>
+      {loading ? (
+        <p>Loading...</p>
+      ) : blogPosts.length === 0 ? (
+        <p>No content found</p>
+      ) : (
+        <>
+          {blogPosts.map((post) => (
+            <div key={post._id}>
+              <h2>{post.title}</h2>
+              <p>{post.body}</p>
+            </div>
+          ))}
+        </>
+      )}
+      <h1>Blog Section</h1> {/* Additional content or components can be added here */}
     </div>
   );
 };

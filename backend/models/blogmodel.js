@@ -9,11 +9,12 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    postedby:{
-        type : mongoose.Schema.Types.ObjectId ,
+    postedby: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true 
+        required: true
     },
+    
     email: {
         type: String,
         required: true
@@ -28,11 +29,7 @@ const blogSchema = new mongoose.Schema({
         default: Date.now
     },
    
-    createdAttime: {
-        type: Date,
-        required: true,
-        default: Date.now 
-    }
+   
 }, { timestamps: true });
 
 const Blog = mongoose.model("Blog", blogSchema);

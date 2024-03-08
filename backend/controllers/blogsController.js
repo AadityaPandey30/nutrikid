@@ -1,16 +1,15 @@
 const Blog = require("../models/blogModel");
 const catchAsync = require("../utils/catchAsync");
-
 exports.createBlogPost = catchAsync(async (req, res, next) => {
-
-   
+    const { body, photo, title, createdAt, email } = req.body;
 
     const newBlogPost = await Blog.create({
-        body: req.body.body,
-        photo: req.body.photo,
-        postedBy: req.user._id, 
-        title: req.body.title,
-        createdAt: req.body.createdAt 
+        body,
+        photo,
+        postedby: req.user._id, // This line was updated to match the schema
+        title,
+        email,
+        createdAt
     });
 
     res.status(201).json({
@@ -21,8 +20,9 @@ exports.createBlogPost = catchAsync(async (req, res, next) => {
     });
 });
 
+
 exports.getAllBlogPosts = catchAsync(async (req, res, next) => {
-    const blogPosts = await Blog.find().populate('postedBy', 'name'); 
+    const blogPosts = await Blog.find().populate('postedby', 'user._id'); 
     
     res.status(200).json({
         status: "success",
