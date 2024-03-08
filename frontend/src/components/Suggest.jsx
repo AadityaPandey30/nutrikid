@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import axios from 'axios';
 import RecipeCard from './smallComponents/RecipeCard';
 
 const DemoRecipeData = [
@@ -30,15 +31,26 @@ const DemoRecipeData = [
 
 const Suggest = () => {
   const [activeSection, setActiveSection] = useState(null);
-
   const [inputText, setInputText] = useState('');
   const [elements, setElements] = useState([]);
+  const [formData, setFormData] = useState({
+    region: 'middleeastern',
+    country: 'india',
+    recipe: 'middleeastern',
+    energy: '',
+    carbohydrates: '',
+    proteins: '',
+    fats: ''
+  });
+  // const [suggestedRecipes, setSuggestedRecipes] = useState([]);
 
   const inputRef = useRef(null);
-
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
+
+ 
+  
 
   const handleEnterPress = (e) => {
     if (e.key === 'Enter') {
@@ -52,6 +64,44 @@ const Suggest = () => {
     setElements((prevElements) => prevElements.filter((_, i) => i !== index));
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const queryParams = new URLSearchParams(formData).toString();
+  //     const response = await axios.get(`/api/suggestRecipes?${queryParams}`);
+  //     setSuggestedRecipes(response.data);
+  //   } catch (error) {
+  //     console.error('Error:', error.response.data);
+  //   }
+  // };
+  const handleSubmit = async () => {
+    try {
+      const region = document.getElementById('region').value;
+      const country = document.getElementById('country').value;
+      const recipe = document.getElementById('recipe').value;
+      const energy = document.getElementById('energy').value;
+      const carbohydrates = document.getElementById('carbs').value;
+      const proteins = document.getElementById('proteins').value;
+      const fats = document.getElementById('fats').value;
+  
+      const requestData = {
+        region,
+        country,
+        recipe,
+        energy,
+        carbohydrates,
+        proteins,
+        fats
+      };
+  
+      console.log('Request Data:', requestData);
+  
+      // Make axios request here with requestData
+  
+    } catch (error) {
+      console.error('Error:', error.response.data);
+    }
+  };
 
   const scrollToSection = (sectionId) => {
     setActiveSection(sectionId);
@@ -60,8 +110,6 @@ const Suggest = () => {
       section.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
     }
   };
-
-
 
   return (
     <div className="container px-[5%] py-[7%]">
@@ -77,14 +125,14 @@ const Suggest = () => {
           <div className='filters flex justify-around text-left pt-10'>
             <div className='filter md:py-8 py-2 w-[200px]'>
               <h1 className='text-2xl'>Region</h1>
-              <select name="language" id="language" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
+              <select name="language" id="region" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
                 <option value="middleeastern">Middle Eastern</option>
                 <option value="indiansubcontinent">Indian Subcontinent</option>
               </select>
             </div>
             <div className='filter md:py-8 py-2 w-[200px]'>
               <h1 className='text-2xl'>Country</h1>
-              <select name="language" id="language" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
+              <select name="language" id="country" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
                 <option value="india">India</option>
                 <option value="australia">Australia</option>
                 <option value="democraticrepublic">Democatic Republic</option>
@@ -92,36 +140,33 @@ const Suggest = () => {
             </div>
             <div className='filter md:py-8 py-2 w-[200px]'>
               <h1 className='text-2xl'>Recipe</h1>
-              <select name="language" id="language" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
-                <option value="middleeastern">Middle Eastern</option>
-                <option value="indiansubcontinent">Indian Subcontinent</option>
+              <select name="language" id="recipe" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
+                <option value="middleeastern">Dal Makhni</option>
+                <option value="indiansubcontinent">Paneer tikka</option>
               </select>
             </div>
-            <div className='filter md:py-8 py-2 w-[200px]'>
-              <h1 className='text-2xl'>Energy</h1>
-              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in Kcal' />
-            </div>
+           
           </div>
           <div className='filters flex justify-around text-left'>
             <div className='filter md:py-4 py-2 w-[200px]'>
-              <h1 className='text-2xl'>Energy</h1>
-              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
+              <h1 className='text-2xl' >Energy</h1>
+              <input id ="energy" type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
             </div>
             <div className='filter md:py-4 py-2 w-[200px]'>
             <h1 className='text-2xl'>Carbohydrates</h1>
-              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
+              <input type='text' id ="carbs" className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
             </div>
             <div className='filter md:py-4 py-2 w-[200px]'>
             <h1 className='text-2xl'>Proteins</h1>
-              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
+              <input type='text' id ="proteins" className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
             </div>
             <div className='filter md:py-4 py-2 w-[200px]'>
             <h1 className='text-2xl'>Fats</h1>
-              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
+              <input type='text' id ="fats" className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
             </div>
           </div>
           <div className='text-center'>
-            <button className="bg-[#F5BF26] text-black font-bold px-20 py-2 my-5 mx-auto rounded-[10px] hover:bg-[#ffdb76]">Submit</button>
+            <button onClick={handleSubmit} className="bg-[#F5BF26] text-black font-bold px-20 py-2 my-5 mx-auto rounded-[10px] hover:bg-[#ffdb76]">Submit</button>
           </div>
           <h1 className='text-2xl font-bold pt-20 pb-8'>Suggested Recipes</h1>
           <div className="recipe-card-container">
