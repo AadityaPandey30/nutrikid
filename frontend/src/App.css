@@ -212,11 +212,16 @@ select:focus{
   }
 }
 
-
 .masked{
   background-image: linear-gradient(360deg,black, transparent, transparent);
   opacity: 0.8;
   height: 100%;
+}
+
+.blog-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 

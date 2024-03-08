@@ -37,10 +37,14 @@ const Blog = () => {
         <p>No content found</p>
       ) : (
         <>
+        <h1 className='text-3xl font-bold blog-img pt-10'>Tips to blog</h1>
           {blogPosts.map((post) => (
-            <div key={post._id} className='bg-blue-500 my-5'>
-              <h2>{post.title}</h2>
-              <p>{post.body}</p>
+            <div key={post._id} className='bg-yellow-200 my-5 p-5 rounded-[16px]'>
+              <div className='img-cont h-[50%] rounded-[20px]'>
+                <img src={post.photo} />
+              </div>
+              <h2 className='font-semibold text-2xl py-4'>{post.title}</h2>
+              <p>{post.body.slice(0,100)}...</p>
             </div>
           ))}
         </>

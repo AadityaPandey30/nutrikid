@@ -73,8 +73,8 @@ const Suggest = () => {
       <hr className='w-[90px] justify-center m-auto my-2' />
       <div className='suggest h-fit min-h-[50vh]'>
         <div className={`code-section ${activeSection === 'section1' ? 'active' : ''} text-center`} id="section1">
-          <h2 className='text-3xl mt-8'>Select by Region</h2>
-          <div className='filters flex justify-between'>
+          <h2 className='text-3xl mt-8'>Select by Filters</h2>
+          <div className='filters flex justify-around text-left pt-10'>
             <div className='filter md:py-8 py-2 w-[200px]'>
               <h1 className='text-2xl'>Region</h1>
               <select name="language" id="language" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
@@ -97,9 +97,31 @@ const Suggest = () => {
                 <option value="indiansubcontinent">Indian Subcontinent</option>
               </select>
             </div>
+            <div className='filter md:py-8 py-2 w-[200px]'>
+              <h1 className='text-2xl'>Energy</h1>
+              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in Kcal' />
+            </div>
+          </div>
+          <div className='filters flex justify-around text-left'>
+            <div className='filter md:py-4 py-2 w-[200px]'>
+              <h1 className='text-2xl'>Energy</h1>
+              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
+            </div>
+            <div className='filter md:py-4 py-2 w-[200px]'>
+            <h1 className='text-2xl'>Carbohydrates</h1>
+              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
+            </div>
+            <div className='filter md:py-4 py-2 w-[200px]'>
+            <h1 className='text-2xl'>Proteins</h1>
+              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
+            </div>
+            <div className='filter md:py-4 py-2 w-[200px]'>
+            <h1 className='text-2xl'>Fats</h1>
+              <input type='text' className='py-2 px-4 bg-[#ffde85] md:mt-3 mt-1 md:mb-4 mb-1 rounded-[5px] w-[200px]' placeholder='in cal' />
+            </div>
           </div>
           <div className='text-center'>
-            <button className="bg-[#F5BF26] text-black font-bold px-20 py-2 mx-auto rounded-[10px] hover:bg-[#ffdb76]">Submit</button>
+            <button className="bg-[#F5BF26] text-black font-bold px-20 py-2 my-5 mx-auto rounded-[10px] hover:bg-[#ffdb76]">Submit</button>
           </div>
           <h1 className='text-2xl font-bold pt-20 pb-8'>Suggested Recipes</h1>
           <div className="recipe-card-container">

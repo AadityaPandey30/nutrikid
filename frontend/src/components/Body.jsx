@@ -87,6 +87,8 @@ const Body = () => {
                   Get Started
                 </button>
             </div>
+            <hr className="border-gray-200"></hr>
+
 
             <Chatbot />
             
