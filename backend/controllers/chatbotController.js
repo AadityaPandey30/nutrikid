@@ -3,7 +3,9 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
 exports.generateAI = catchAsync(async (req, res, next) => {
-  const ai_prompt = req.body.prompt;
+  const ai_prompt =
+    "You can only answer to health related conversations. If there is some other prompt, reply with I cannot assist you with that, behave like a chatbot and reply to the last message:\n" +
+    req.body.prompt;
 
   const completion = await openai.completions.create({
     model: "gpt-3.5-turbo-instruct",
