@@ -1,39 +1,76 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Connect = () => {
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
+  const [questionsList, setQuestionsList] = useState([]);
+
+  useEffect(() => {
+    fetchQuestions(); // Fetch questions when the component mounts
+  }, []); // Empty dependency array ensures this effect runs only once
+
+  const fetchQuestions = async () => {
+    try {
+      const token = localStorage.getItem('jwt').trim();
+      const response = await axios.get("http://localhost:8000/api/v1/chat/community", {
+        headers: {
+          Authorization: `Bearer${token}`, // Add a space between "Bearer" and the token
+        },
+      });
+      setQuestionsList(response.data.questions); // Assuming 'questions' is the array containing the questions
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
+  };
+  
 
   const handlePostQuestion = async () => {
-    setLoading(true); // Set loading state to true while sending the request
+    setLoading(true);
     try {
-      // Retrieve the token from localStorage
       const token = localStorage.getItem('jwt').trim();
-
-      // Make a POST request to the backend API endpoint with the authentication token and question data
-      console.log(token);
       const response = await axios.post(
         "http://localhost:8000/api/v1/chat/community",
-
-        { body: question }, // Send the question body in the request body
+        { body: question },
         {
           headers: {
-            Authorization:`Bearer${token}`,
-        //     Authorization:
-        //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZThkYzQ5N2IxMzYzZWRiMGRkOWQ2ZCIsImlhdCI6MTcwOTg5NzU0NywiZXhwIjoxNzE3NjczNTQ3fQ.zRPseyFVnxxwUwDMav5HuQDJYvoKRybUPrvQT015yUc",
-        //   },
+            Authorization: `Bearer${token}`, // Add a space between "Bearer" and the token
           },
         }
       );
-
-      console.log(response.data);
-      // Optionally, you can handle successful response here, e.g., display a success message
+      setQuestionsList([...questionsList, response.data]);
     } catch (error) {
       console.error("Error posting question:", error);
-      // Optionally, you can handle errors and show an error message
     } finally {
-      setLoading(false); // Set loading state back to false after request completion
+      setLoading(false);
+    }
+  };
+
+  const handlePostComment = async (questionId, comment) => {
+    try {
+      const token = localStorage.getItem('jwt').trim();
+      const response = await axios.post(
+
+        `http://localhost:8000/api/v1/chat/community/${questionId}`,
+        { body: comment },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add a space between "Bearer" and the token
+          },
+        }
+      );
+      // Update the comments of the specific question in the questionsList state
+      setQuestionsList(questionsList.map(questionItem => {
+        if (questionItem._id === questionId) {
+          return {
+            ...questionItem,
+            comments: [...questionItem.comments, response.data]
+          };
+        }
+        return questionItem;
+      }));
+    } catch (error) {
+      console.error("Error posting comment:", error);
     }
   };
 
@@ -53,14 +90,45 @@ const Connect = () => {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
           />
-          <br></br>
+          <br />
           <button
             className="bg-[#F5BF26] text-black font-bold px-8 py-2 my-2 mx-auto rounded-[10px] hover:bg-[#ffdb76]"
             onClick={handlePostQuestion}
-            disabled={loading} // Disable the button while the request is being sent
+            disabled={loading}
           >
             {loading ? "Posting..." : "Post"}
           </button>
+        </div>
+
+        <div className="mt-8">
+          {questionsList.map((questionItem) => (
+            <div key={questionItem._id} className="border p-4 mb-4">
+              <h3 className="text-lg font-bold">{questionItem.body}</h3>
+              <p className="text-gray-600 mt-2">{questionItem.createdAt}</p>
+              {/* Input field for posting comments */}
+              <div>
+                <input
+                  type="text"
+                  placeholder="Write a comment..."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <button
+                  onClick={() => handlePostComment(questionItem._id, comment)}
+                >
+                  Post
+                </button>
+              </div>
+              {/* Render comments */}
+              <div>
+                {questionItem.comments.map(comment => (
+                  <div key={comment._id}>
+                    <p>{comment.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
