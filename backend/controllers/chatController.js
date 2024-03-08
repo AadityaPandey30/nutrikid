@@ -47,3 +47,30 @@ exports.postComment = catchAsync(async (req, res, next) => {
     comment,
   });
 });
+
+exports.getThread = catchAsync(async (req, res, next) => {
+  const thread = await Question.findById(req.params.threadId);
+
+  if (!thread) {
+    return next(new AppError("Could not find thread!", 404));
+  }
+
+  const comments = await Comment.find({ ques: req.params.threadId });
+
+  let commentList = [];
+
+  if (comments.length > 0) {
+    comments.forEach((comment) => {
+      commentList.push({
+        id: comment.id,
+        user: comment.user,
+        body: comment.body,
+      });
+    });
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: { thread, commentList },
+  });
+});

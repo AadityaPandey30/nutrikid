@@ -16,4 +16,5 @@ router
 
 router.route("/community/:questionId").post(chatController.postComment);
 
+router.route("/community/thread/:threadId").get(chatController.getThread);
 module.exports = router;
