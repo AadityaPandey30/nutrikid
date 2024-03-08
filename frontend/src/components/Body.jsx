@@ -77,7 +77,7 @@ const Body = () => {
                 </div>
                 </div>
             </div>
-            <hr></hr>
+            <hr className="border-gray-200"></hr>
 
             <div className="trial px-[5%] py-10">
                 <h1 className="text-2xl font-bold mb-4">Start your free trial today</h1>

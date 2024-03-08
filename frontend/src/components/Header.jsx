@@ -42,12 +42,12 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-gray-500" to="/costomization">
+                <Link className="hover:text-gray-500" to="/customize">
                   Customize
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-gray-500" to="/costomization">
+                <Link className="hover:text-gray-500" to="/kiddo">
                   Kiddo
                 </Link>
               </li>

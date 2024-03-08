@@ -8,6 +8,8 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Suggest from "./components/Suggest"
 import Connect from './components/Connect'
+import Kiddo from './components/Kiddo'
+import Customize from './components/Customize'
 
 
 function App() {
@@ -23,6 +25,9 @@ function App() {
           <Route path='/signup' element={<Signup />}/>
           <Route path='/suggest' element={<Suggest />}/>
           <Route path='/connect' element={<Connect />}/>
+          <Route path='/customize' element={<Customize />}/>
+          <Route path='/kiddo' element={<Kiddo />}/>
+          
 
 
         </Routes>

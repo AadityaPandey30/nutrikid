@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -20,7 +20,7 @@ const Login = () => {
         throw new Error("Login failed");
       }
       const data = await response.json();
-      localStorage.setItem("jwt", data.token); // Store token in local storage
+      localStorage.setItem("jwt", "Bearer "+data.token); // Store token in local storage
       localStorage.setItem("user", JSON.stringify(data.data.user)); // Store user details in local storage
       navigate("/");
     } catch (error) {
@@ -60,7 +60,7 @@ const Login = () => {
           </div>
         </form>
         <p className="py-4 px-1 text-center">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a href="/signup" className="underline text-yellow-700">
             SignUp
           </a>{" "}

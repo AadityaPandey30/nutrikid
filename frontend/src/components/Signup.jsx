@@ -7,6 +7,10 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setpasswordConfirm] = useState("");
   const navigate = useNavigate();
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -21,7 +25,7 @@ const Signup = () => {
         throw new Error("Signup failed");
       }
       const data = await response.json();
-      localStorage.setItem("jwt", data.token); // Store token in local storage
+      localStorage.setItem("jwt", "Bearer "+data.token); // Store token in local storage
       localStorage.setItem("user", JSON.stringify(data.data.user)); // Store user details in local storage
       navigate("/");
     } catch (error) {
@@ -66,18 +70,6 @@ const Signup = () => {
             placeholder="Confirm Password"
             required
           />
-          <h1 className="text-1xl pt-4 pb-2 text-right" >Enter some details of your Child</h1>
-          <div className="text-right">
-                    <input type="text" placeholder="Height(cm)" className="bg-[#ffde85] rounded-[4px] py-2 w-[95px] text-center px-1 mx-2"/>
-                    <input type="text" placeholder="Weight(cm)" className="bg-[#ffde85] rounded-[4px] py-2 w-[95px] text-center px-1 mx-2"/>
-                    <select name="age" id="age" className='px-5 py-2.5 md:mt-3 mt-1 md:mb-4 mb-1 ml-2' required >
-                        <option value="None" selected>Age</option>
-                        <option value="1-3">1-3</option>
-                        <option value="3-5">3-5</option>
-                        <option value="5-7">5-7</option>
-                        <option value="8">8</option>
-                    </select>
-                </div>
           <div className="text-right">
             <button
               type="submit"
