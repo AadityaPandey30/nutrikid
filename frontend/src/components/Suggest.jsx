@@ -76,32 +76,68 @@ const Suggest = () => {
   // };
   const handleSubmit = async () => {
     try {
-      const region = document.getElementById('region').value;
-      const country = document.getElementById('country').value;
-      const recipe = document.getElementById('recipe').value;
-      const energy = document.getElementById('energy').value;
-      const carbohydrates = document.getElementById('carbs').value;
-      const proteins = document.getElementById('proteins').value;
-      const fats = document.getElementById('fats').value;
+      let region = document.getElementById('region').value;
+      let subRegion = document.getElementById('country').value;
+      // const recipeTitle = document.getElementById('recipe').value;
+      const recipeTitle="";
+      const ingredientUsed = ''; // Set this value if you have an input field for it
+      const ingredientNotUsed = ''; // Set this value if you have an input field for it
+      const utensil = ''; // Set this value if you have an input field for it
+      const continent= "Asian";
+      region="";
+      subRegion="";
+  
+      // Other parameters can be set based on your input fields
+      const energyMin = 0;
+      const energyMax = 0;
+      const carbohydratesMin = 0;
+      const carbohydratesMax = 0;
+      const fatMin = 0;
+      const fatMax = 0;
+      const proteinMin = 0;
+      const proteinMax = 0;
   
       const requestData = {
+        continent,
         region,
-        country,
-        recipe,
-        energy,
-        carbohydrates,
-        proteins,
-        fats
+        subRegion,
+        recipeTitle,
+        ingredientUsed,
+        ingredientNotUsed,
+        utensil,
+        energyMin,
+        energyMax,
+        carbohydratesMin,
+        carbohydratesMax,
+        fatMin,
+        fatMax,
+        proteinMin,
+        proteinMax
       };
   
       console.log('Request Data:', requestData);
   
-      // Make axios request here with requestData
+      const response = await axios.post(
+        'https://apis-new.foodoscope.com/recipe-search/recipesAdvanced?page=1&pageSize=10',
+        requestData,
+        {
+          headers: {
+            'accept': 'application/json',
+            'Authorization': 'Bearer 4NSwMo9iFlLICMMWeR_YhliPUmETt-z9TfQ9QkRzGtIEKu8R',
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+  
+      console.log('Response:', response.data);
+  
+      // Handle the response data accordingly
   
     } catch (error) {
       console.error('Error:', error.response.data);
     }
   };
+  
 
   const scrollToSection = (sectionId) => {
     setActiveSection(sectionId);
