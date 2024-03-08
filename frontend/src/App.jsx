@@ -12,6 +12,7 @@ import Kiddo from './components/Kiddo'
 import Customize from './components/Customize'
 import RecipeCardDetails from './components/smallComponents/RecipeCardDetails';
 import Plan from './components/smallComponents/Plan'
+import Footer from './components/Footer'
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
 
 
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </BrowserRouter>
     </div>
   )

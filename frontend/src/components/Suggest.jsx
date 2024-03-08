@@ -2,32 +2,6 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import RecipeCard from './smallComponents/RecipeCard';
 
-const DemoRecipeData = [
-  {
-    id: 1,
-    recipeName: 'Delicious Pasta',
-    ownerName: 'Chef John',
-    imageUrl: 'https://www.inspiredtaste.net/wp-content/uploads/2023/09/Vegetable-Baked-Pasta-Video.jpg',
-  },
-  {
-    id: 2,
-    recipeName: 'Spicy Tacos',
-    ownerName: 'Chef Maria',
-    imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/chicken-tacos-index-659443ccdaac5.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*',
-  },
-  {
-    id: 3,
-    recipeName: 'Spicy Tacos',
-    ownerName: 'Chef Mulla',
-    imageUrl: 'https://www.inspiredtaste.net/wp-content/uploads/2023/09/Vegetable-Baked-Pasta-Video.jpg',
-  },
-  {
-    id: 4,
-    recipeName: 'Spicy Tacos',
-    ownerName: 'Chef Kaala',
-    imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/chicken-tacos-index-659443ccdaac5.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*',
-  },
-];
 
 const Suggest = () => {
   const [activeSection, setActiveSection] = useState(null);
@@ -42,7 +16,7 @@ const Suggest = () => {
     proteins: '',
     fats: ''
   });
-  // const [suggestedRecipes, setSuggestedRecipes] = useState([]);
+  const [suggestedRecipes, setSuggestedRecipes] = useState([]);
 
   const inputRef = useRef(null);
   const handleInputChange = (e) => {
@@ -74,6 +48,72 @@ const Suggest = () => {
   //     console.error('Error:', error.response.data);
   //   }
   // };
+  const handleSubmit1 = async () => {
+    try {
+      let region = "";
+      let subRegion = "";
+      // const recipeTitle = document.getElementById('recipe').value;
+      const recipeTitle="";
+      console.log(elements.join(','));
+      const ingredientUsed = elements.join(','); // Set this value if you have an input field for it
+      const ingredientNotUsed = ''; // Set this value if you have an input field for it
+      const utensil = ''; // Set this value if you have an input field for it
+      const continent= "Asian";
+      region="";
+      subRegion="";
+  
+      // Other parameters can be set based on your input fields
+      const energyMin = 0;
+      const energyMax = 0;
+      const carbohydratesMin = 0;
+      const carbohydratesMax = 0;
+      const fatMin = 0;
+      const fatMax = 0;
+      const proteinMin = 0;
+      const proteinMax = 0;
+  
+      const requestData = {
+        continent,
+        region,
+        subRegion,
+        recipeTitle,
+        ingredientUsed,
+        ingredientNotUsed,
+        utensil,
+        energyMin,
+        energyMax,
+        carbohydratesMin,
+        carbohydratesMax,
+        fatMin,
+        fatMax,
+        proteinMin,
+        proteinMax
+      };
+      console.log('Request Data:', requestData);
+  
+      const response = await axios.post(
+        'https://apis-new.foodoscope.com/recipe-search/recipesAdvanced?page=1&pageSize=12',
+        requestData,
+        {
+          headers: {
+            'accept': 'application/json',
+            'Authorization': 'Bearer 4NSwMo9iFlLICMMWeR_YhliPUmETt-z9TfQ9QkRzGtIEKu8R',
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+  
+      console.log('Response:', response.data);
+
+       // Check if the response data is an array or extract the array from the response
+       const recipesArray = Array.isArray(response.data.payload?.data) ? response.data.payload.data : [];
+      // Handle the response data accordingly
+      setSuggestedRecipes(recipesArray);
+    } catch (error) {
+      console.error('Error:', error.response.data);
+    }
+  };
+
   const handleSubmit = async () => {
     try {
       let region = document.getElementById('region').value;
@@ -118,7 +158,7 @@ const Suggest = () => {
       console.log('Request Data:', requestData);
   
       const response = await axios.post(
-        'https://apis-new.foodoscope.com/recipe-search/recipesAdvanced?page=1&pageSize=10',
+        'https://apis-new.foodoscope.com/recipe-search/recipesAdvanced?page=1&pageSize=12',
         requestData,
         {
           headers: {
@@ -130,9 +170,11 @@ const Suggest = () => {
       );
   
       console.log('Response:', response.data);
-  
+
+       // Check if the response data is an array or extract the array from the response
+       const recipesArray = Array.isArray(response.data.payload?.data) ? response.data.payload.data : [];
       // Handle the response data accordingly
-  
+      setSuggestedRecipes(recipesArray);
     } catch (error) {
       console.error('Error:', error.response.data);
     }
@@ -159,26 +201,34 @@ const Suggest = () => {
         <div className={`code-section ${activeSection === 'section1' ? 'active' : ''} text-center`} id="section1">
           <h2 className='text-3xl mt-8'>Select by Filters</h2>
           <div className='filters flex justify-around text-left pt-10'>
+          <div className='filter md:py-8 py-2 w-[200px]'>
+              <h1 className='text-2xl'>Continent</h1>
+              <select name="language" id="region" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
+                <option value="asian">Asian</option>
+                <option value="europe">African</option>
+              </select>
+            </div>
             <div className='filter md:py-8 py-2 w-[200px]'>
               <h1 className='text-2xl'>Region</h1>
               <select name="language" id="region" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
-                <option value="middleeastern">Middle Eastern</option>
+                <option value="northernafrica">Northern Africa</option>
                 <option value="indiansubcontinent">Indian Subcontinent</option>
               </select>
             </div>
             <div className='filter md:py-8 py-2 w-[200px]'>
               <h1 className='text-2xl'>Country</h1>
               <select name="language" id="country" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
-                <option value="india">India</option>
-                <option value="australia">Australia</option>
+                <option value="indian">Indian</option>
+                <option value="moroccan">Moroccan</option>
+                <option value="egyptian">Egyptian</option>
                 <option value="democraticrepublic">Democatic Republic</option>
               </select>
             </div>
             <div className='filter md:py-8 py-2 w-[200px]'>
               <h1 className='text-2xl'>Recipe</h1>
               <select name="language" id="recipe" className='px-4 py-2 md:mt-3 mt-1 md:mb-4 mb-1'>
-                <option value="middleeastern">Dal Makhni</option>
-                <option value="indiansubcontinent">Paneer tikka</option>
+                <option value="indianeggroll">Indian Egg Roll</option>
+                <option value="meatmaharaja">Meat Maharaja</option>
               </select>
             </div>
            
@@ -206,11 +256,20 @@ const Suggest = () => {
           </div>
           <h1 className='text-2xl font-bold pt-20 pb-8'>Suggested Recipes</h1>
           <div className="recipe-card-container">
-            {DemoRecipeData.map((recipe) => (
-              <RecipeCard key={recipe.id} recipe={recipe} />
-            ))}
-          </div>
+        {/* Use the suggestedRecipes state to map through the fetched recipes */}
+        {suggestedRecipes?.map((recipe) => (
+          <RecipeCard
+            key={recipe.id}
+            recipe={{
+              id: recipe.Recipe_id,
+              recipeName: recipe.Recipe_title,
+              imageUrl: recipe.img_url,
+            }}
+          />
+        ))}
+      </div>
         </div>
+
 
         <div className={`code-section ${activeSection === 'section2' ? 'active' : ''} text-center`} id="section2">
           <h2 className='text-3xl mt-8'>Make your Recipe</h2>
@@ -227,21 +286,29 @@ const Suggest = () => {
             {elements.map((element, index) => (
               <div key={index} className='border pl-3 pr-2 py-2 m-1 inline-block relative bg-yellow-500 rounded-[6px]'>
                 {element}
-                <button className='cross-button ml-3 px-1' onClick={() => removeElement(index)}>
+                <button  className='cross-button ml-3 px-1' onClick={() => removeElement(index)}>
                   &#x2715;
                 </button>
               </div>
             ))}
           </div>
           <div className='text-center'>
-            <button className="bg-[#F5BF26] text-black font-bold px-20 py-2 mx-auto rounded-[10px] hover:bg-[#ffdb76]">Cook</button>
+            <button  onClick={handleSubmit1} className="bg-[#F5BF26] text-black font-bold px-20 py-2 mx-auto rounded-[10px] hover:bg-[#ffdb76]">Cook</button>
           </div>
           <h1 className='text-2xl font-bold pt-20 pb-8'>Suggested Recipes</h1>
           <div className="recipe-card-container">
-            {DemoRecipeData.map((recipe) => (
-              <RecipeCard key={recipe.id} recipe={recipe} />
-            ))}
-          </div>
+        {/* Use the suggestedRecipes state to map through the fetched recipes */}
+        {suggestedRecipes?.map((recipe) => (
+          <RecipeCard
+            key={recipe.id}
+            recipe={{
+              id: recipe.Recipe_id,
+              recipeName: recipe.Recipe_title,
+              imageUrl: recipe.img_url,
+            }}
+          />
+        ))}
+      </div>
         </div>
       </div>
     </div>
