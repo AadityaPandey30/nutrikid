@@ -227,12 +227,24 @@ select:focus{
 .healthy{
   background-image: url("./images/family.jpg");
   border-radius: 15px;
-  padding: 140px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+.plan{
+  background-image: url("./images/plan.jpg");
+  border-radius: 15px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.new-mask{
+  padding: 140px;
+  background-color: rgb(0,0,0,0.3);
+  border-radius: 15px;
+}
 
 @media(max-width:768px)
 {

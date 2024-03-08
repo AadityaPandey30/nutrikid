@@ -37,14 +37,14 @@ const Blog = () => {
         <p>No content found</p>
       ) : (
         <>
-        <h1 className='text-3xl font-bold blog-img pt-10'>Tips to blog</h1>
+        <h1 className='text-3xl font-bold blog-img pt-10 pb-5 px-1'>Top blogs</h1>
           {blogPosts.map((post) => (
             <div key={post._id} className='bg-yellow-200 my-5 p-5 rounded-[16px]'>
-              <div className='img-cont h-[50%] rounded-[20px]'>
-                <img src={post.photo} />
-              </div>
+              <div className='img-cont text-center w-full py-[150px]' style={{ backgroundImage: `url(${post.photo})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>.
+</div>
+
               <h2 className='font-semibold text-2xl py-4'>{post.title}</h2>
-              <p>{post.body.slice(0,100)}...</p>
+              <p>{post.body.slice(0,500)}...</p>
             </div>
           ))}
         </>
