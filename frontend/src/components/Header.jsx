@@ -22,32 +22,32 @@ const Header = () => {
           <div className="navigator md:static absolute bg-white md:min-h-fit min-h-[30vh] left-0 top-[10%] md:w-fit w-full basis-1/2 flex text-left px-5">
             <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 p-[3%] md:m-auto">
               <li>
-                <Link className="hover:text-gray-500" to="/">
+                <Link className="hover:text-yellow-700" to="/">
                   Home
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-gray-500" to="/suggest">
+                <Link className="hover:text-yellow-700" to="/suggest">
                   Suggest
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-gray-500" to="/about">
+                <Link className="hover:text-yellow-700" to="/about">
                   About
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-gray-500" to="/connect">
+                <Link className="hover:text-yellow-700" to="/connect">
                   Connect
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-gray-500" to="/customize">
+                <Link className="hover:text-yellow-700" to="/customize">
                   Customize
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-gray-500" to="/kiddo">
+                <Link className="hover:text-yellow-700" to="/kiddo">
                   Kiddo
                 </Link>
               </li>

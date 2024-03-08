@@ -40,8 +40,8 @@ const Customize = ()=>{
                     <div className="bg-blue-50 rounded-[10px] w-fit px-2 py-1 mr-4 cursor-pointer">Lasagna</div>
                     <div className="bg-blue-50 rounded-[10px] w-fit px-2 py-1 mr-4 cursor-pointer">Burgers</div>
                 </div>
-                <h1 className="text-2xl py-4 font-semibold">Try these healthier alternatives</h1>
-                <div className="recipe-card-container">
+                <h1 className="text-2xl py-4 font-semibold pt-8">Try these healthier alternatives</h1>
+                <div className="recipe-card-container py-2">
                 {DemoRecipeData.map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))}

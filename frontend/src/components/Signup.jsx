@@ -7,10 +7,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setpasswordConfirm] = useState("");
   const navigate = useNavigate();
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

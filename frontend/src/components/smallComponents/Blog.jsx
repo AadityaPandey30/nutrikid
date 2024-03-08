@@ -38,14 +38,13 @@ const Blog = () => {
       ) : (
         <>
           {blogPosts.map((post) => (
-            <div key={post._id}>
+            <div key={post._id} className='bg-blue-500 my-5'>
               <h2>{post.title}</h2>
               <p>{post.body}</p>
             </div>
           ))}
         </>
       )}
-      <h1>Blog Section</h1> {/* Additional content or components can be added here */}
     </div>
   );
 };

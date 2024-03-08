@@ -10,6 +10,7 @@ import Suggest from "./components/Suggest"
 import Connect from './components/Connect'
 import Kiddo from './components/Kiddo'
 import Customize from './components/Customize'
+import RecipeCardDetails from './components/smallComponents/RecipeCardDetails';
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
           <Route path='/connect' element={<Connect />}/>
           <Route path='/customize' element={<Customize />}/>
           <Route path='/kiddo' element={<Kiddo />}/>
-          
+          <Route path='/recipe/:id' element={<RecipeCardDetails />} />
 
 
         </Routes>

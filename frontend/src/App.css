@@ -5,6 +5,10 @@ h1,h2,h3,p{
   margin: 5px 0px;
 }
 
+a, select{
+  cursor: pointer;
+}
+
 hr{
 border: 0.2px solid gray;
 }
