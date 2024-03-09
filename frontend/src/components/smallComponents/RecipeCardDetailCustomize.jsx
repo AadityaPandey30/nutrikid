@@ -116,10 +116,10 @@ const RecipeCardDetailsCustomize = () => {
   return (
     <div className='container px-[5%] py-10'>
       <h1 className='font-bold text-3xl text-center pb-4 pt-8'>{recipeDetails.Recipe_title}</h1>
-      <div className="recipe-details-page">
-        <div className='side1'>
+      <div className="recipe-details-page m-auto w-fit">
+        <div className='side1 text-center py-4'>
           <img src={recipeDetails.img_url} alt={recipeDetails.Recipe_title} className='my-8 img-card' />
-          <div className='details'>
+          <div className='details text-2xl'>
             <p className='text-gray-700'>Source: {recipeDetails.Source}</p>
             <p className='text-gray-700'>Calories: {recipeDetails.Calories} cal</p>
             <p className='text-gray-700'>Carbohydrates: {recipeDetails['Carbohydrate, by difference (g)']} g</p>
@@ -127,7 +127,8 @@ const RecipeCardDetailsCustomize = () => {
             <p className='text-gray-700'>Servings: {recipeDetails.servings}</p>
           </div>
         </div>
-        <div className='side2'>
+        <div className='side2 py-4 flex'>
+          <div className='text-left basis-1/2 w-fit pr-5'>
           <h2 className='font-bold text-2xl py-4'>Ingredients</h2>
           <ul>
             {recipeDetails.ingredients.map((ingredient, index) => (
@@ -136,13 +137,16 @@ const RecipeCardDetailsCustomize = () => {
               </li>
             ))}
           </ul>
-          {/* Display similar ingredients */}
+          </div>
+          <div className='basis-1/2'>
           {similarIngredients && (
             <div>
               <h2 className='font-bold text-2xl py-4'>Similar Ingredients</h2>
               <p>{similarIngredients}</p>
             </div>
           )}
+          </div>
+        </div>  
           {/* Display additional dishes */}
           {additionalDishes.length > 0 && (
             <div>
@@ -152,7 +156,6 @@ const RecipeCardDetailsCustomize = () => {
               ))}
             </div>
           )}
-        </div>
       </div>
     </div>
   );

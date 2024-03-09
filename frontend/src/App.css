@@ -272,11 +272,12 @@ select:focus{
 }
 
 .chat-message{
-  border-radius: 8px 8px 8px 0px;
+  border-radius: 15px 15px 15px 0px;
   padding: 3px 5px;
   margin: 5px 0px;
-  background-color: #F5BF26;
+  background-color: #fff8e5;
   width: 90%;
+  border: 1px solid gray;
 }
 
 @media(max-width:768px)
