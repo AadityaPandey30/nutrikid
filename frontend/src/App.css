@@ -246,6 +246,15 @@ select:focus{
   border-radius: 15px;
 }
 
+.img-card{
+  border-radius: 1em;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img-card:hover{
+  scale: 1.002;
+}
+
 @media(max-width:768px)
 {
 .bar{

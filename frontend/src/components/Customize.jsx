@@ -1,37 +1,64 @@
 import RecipeCard from "./smallComponents/RecipeCard"
-const DemoRecipeData = [
-    {
-      id: 1,
-      recipeName: 'Delicious Pasta',
-      ownerName: 'Chef John',
-      imageUrl: 'https://www.inspiredtaste.net/wp-content/uploads/2023/09/Vegetable-Baked-Pasta-Video.jpg',
-    },
-    {
-      id: 2,
-      recipeName: 'Spicy Tacos',
-      ownerName: 'Chef Maria',
-      imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/chicken-tacos-index-659443ccdaac5.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*',
-    },
-    {
-      id: 3,
-      recipeName: 'Spicy Tacos',
-      ownerName: 'Chef Mulla',
-      imageUrl: 'https://www.inspiredtaste.net/wp-content/uploads/2023/09/Vegetable-Baked-Pasta-Video.jpg',
-    },
-    {
-      id: 4,
-      recipeName: 'Spicy Tacos',
-      ownerName: 'Chef Kaala',
-      imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/chicken-tacos-index-659443ccdaac5.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*',
-    },
-  ];
+import { useEffect, useState } from "react";
+import axios from 'axios';
+
 
 const Customize = ()=>{
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [allRecipes, setAllRecipes] = useState([]);
+
+  useEffect(() => {
+    // Fetch all recipes when the component mounts
+    fetchRecipes();
+  }, []);
+
+  const fetchRecipes = async () => {
+    try {
+      const response = await axios.get(
+        'https://apis-new.foodoscope.com/recipe-search/recipe?searchText=all&page=0&pageSize=10',
+        {
+          headers: {
+            'accept':'application/json',
+            'Authorization':'Bearer 4NSwMo9iFlLICMMWeR_YhliPUmETt-z9TfQ9QkRzGtIEKu8R',
+      
+          }
+        }
+      );
+
+    // Check if the response data is an array or extract the array from the response
+    const recipesArray = Array.isArray(response.data?.payload?.data) ? response.data.payload.data : [];
+    setAllRecipes(recipesArray);
+    setFilteredRecipes(recipesArray);
+  } catch (error) {
+    console.error('Error fetching recipes:', error);
+  }
+};
+
+  const handleInputChange = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    setSearchTerm(searchTerm);
+
+    // Filter recipes based on the input text
+    const filtered = allRecipes.filter(recipe =>
+      recipe.Recipe_title.toLowerCase().includes(searchTerm)
+    );
+
+    setFilteredRecipes(filtered);
+  };
+
     return(
-        <div className="container px-[5%]">
-            <div className="">
-                <h1 className="text-2xl font-bold py-5">Search for recipes</h1>
-                <input type="search" className="px-2 py-3 bg-blue-50 rounded-[8px] w-[60%] min-w-[300px]" placeholder="Search for a recipe" />
+      <div className="container px-[5%]">
+      <div className="">
+        <h1 className="text-2xl font-bold py-5">Search for recipes</h1>
+        <input
+          type="search"
+          className="px-2 py-3 bg-blue-50 rounded-[8px] w-[60%] min-w-[300px]"
+          placeholder="Search for a recipe"
+          value={searchTerm}
+          onChange={handleInputChange}
+        />
                 <h1 className="text-1xl py-4 font-semibold">Popular Searches</h1>
                 <div className="popular flex py-2">
                     <div className="bg-blue-50 rounded-[10px] w-fit px-2 py-1 mr-4 cursor-pointer">Tacos</div>
@@ -42,12 +69,10 @@ const Customize = ()=>{
                 </div>
                 <h1 className="text-2xl py-4 font-semibold pt-8">Try these healthier alternatives</h1>
                 <div className="recipe-card-container py-2">
-                {DemoRecipeData.map((recipe) => (
-              <RecipeCard key={recipe.id} recipe={recipe} />
-            ))}
-            </div>
-
-
+          {filteredRecipes.map((recipe) => (
+            <RecipeCard key={recipe.Recipe_id} recipe={recipe} />
+          ))}
+        </div>
             </div>
         </div>
 

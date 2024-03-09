@@ -1,44 +1,69 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-const DemoRecipeData = [
-  {
-    id: 1,
-    recipeName: 'Delicious Pasta',
-    ownerName: 'Chef John',
-    imageUrl: 'https://www.inspiredtaste.net/wp-content/uploads/2023/09/Vegetable-Baked-Pasta-Video.jpg',
-  },
-  {
-    id: 2,
-    recipeName: 'Spicy Tacos',
-    ownerName: 'Chef Maria',
-    imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/chicken-tacos-index-659443ccdaac5.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*',
-  },
-  {
-    id: 3,
-    recipeName: 'Spicy Tacos',
-    ownerName: 'Chef Mulla',
-    imageUrl: 'https://www.inspiredtaste.net/wp-content/uploads/2023/09/Vegetable-Baked-Pasta-Video.jpg',
-  },
-  {
-    id: 4,
-    recipeName: 'Spicy Tacos',
-    ownerName: 'Chef Kaala',
-    imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/chicken-tacos-index-659443ccdaac5.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*',
-  },
-];
+import axios from 'axios';
 
 const RecipeCardDetails = () => {
   const { id } = useParams();
-  const selectedRecipe = DemoRecipeData.find((recipe) => recipe.id.toString() === id);
+  const apiKey = "4NSwMo9iFlLICMMWeR_YhliPUmETt-z9TfQ9QkRzGtIEKu8R";
 
-  if (!selectedRecipe) {
-    return <div>Recipe not found</div>;
+  // Function to fetch recipe details from the API
+  const fetchRecipeDetails = async (recipeId) => {
+    try {
+      const response = await axios.get(
+        `https://apis-new.foodoscope.com/recipe/${recipeId}`,
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+          },
+        }
+      );
+
+      const recipeDetails = response.data.payload; // Assuming the details are in the 'payload' property
+      return recipeDetails;
+    } catch (error) {
+      console.error('Error fetching recipe details:', error);
+      return null;
+    }
+  };
+
+  const [recipeDetails, setRecipeDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const details = await fetchRecipeDetails(id);
+      if (details) {
+        setRecipeDetails(details);
+      } else {
+        // Handle error or set state accordingly
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  if (!recipeDetails) {
+    return <div>Loading...</div>;
   }
 
   return (
-    <div className="recipe-details-page">
-      <img src={selectedRecipe.imageUrl} alt={selectedRecipe.recipeName} />
-      <h2>{selectedRecipe.recipeName}</h2>
-      <p>By {selectedRecipe.ownerName}</p>
+    <div className='container px-[5%] py-10'>
+      <h1 className='font-bold text-3xl text-center pb-4 pt-8'>{recipeDetails.Recipe_title}</h1>
+      <div className="recipe-details-page">
+        <div className='side1'>
+          <img src={recipeDetails.img_url} alt={recipeDetails.Recipe_title} className='my-8 img-card' />
+        </div>
+        <div className='side2'>
+          <div className='details'>
+          <p className='text-gray-700'>Source: {recipeDetails.Source}</p>
+          <p className='text-gray-700'>Calories: {recipeDetails.Calories} cal</p>
+          <p className='text-gray-700'>Carbohydrates: {recipeDetails['Carbohydrate, by difference (g)']} g</p>
+          <p className='text-gray-700'>Cook Time: {recipeDetails.cook_time}</p>
+          <p className='text-gray-700'>Servings: {recipeDetails.servings}</p>
+          </div>
+        </div>
+      
+    </div>
     </div>
   );
 };
