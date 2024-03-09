@@ -5,6 +5,17 @@ h1,h2,h3,p{
   margin: 5px 0px;
 }
 
+.similar-ingredients-container {
+  max-height: 200px; /* Adjust height as needed */
+  overflow-y: scroll;
+}
+
+.similar-ingredients-list {
+  padding-right: 20px; /* Add some padding to prevent the scrollbar from overlapping content */
+}
+
+
+
 a, select{
   cursor: pointer;
 }

@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -29,13 +27,45 @@ const RecipeCardDetailsCustomize = () => {
     }
   };
 
+  // Function to fetch similar ingredients from the backend API
+  const fetchSimilarIngredients = async (ingredients) => {
+    try {
+      const token = localStorage.getItem('jwt'); // Get the user's authentication token from local storage
+      const ingredientsString = ingredients.map(ingredient => ingredient.ingredient).join(',');
+      const response = await axios.post(
+        'http://localhost:8000/api/v1/showSimilarIngredients', 
+        { ingredients: ingredientsString },
+        {
+          headers: {
+            'Authorization': `Bearer${token}`,
+          },
+        }
+      );
+      const similarIngredients = response.data.data; // Correctly extract the similarIngredients array
+      setSimilarIngredients(similarIngredients); // Set the similar ingredients state
+      console.log(similarIngredients);
+      return similarIngredients; // Return similar ingredients data
+    } catch (error) {
+      console.error('Error fetching similar ingredients:', error);
+      setSimilarIngredients(null); // Handle error by setting similar ingredients state to null
+      return null;
+    }
+  };
+  
+
   const [recipeDetails, setRecipeDetails] = useState(null);
+  const [similarIngredients, setSimilarIngredients] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const details = await fetchRecipeDetails(id);
       if (details) {
         setRecipeDetails(details);
+        const similar = await fetchSimilarIngredients(details.ingredients);
+        if (similar) {
+          setSimilarIngredients(similar);
+          console.log(similar);
+        }
       } else {
         // Handle error or set state accordingly
       }
@@ -43,6 +73,21 @@ const RecipeCardDetailsCustomize = () => {
 
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    // Fetch similar ingredients when the component mounts
+    const fetchSimilar = async () => {
+      const similar = await fetchSimilarIngredients(recipeDetails.ingredients);
+      if (similar) {
+        setSimilarIngredients(similar);
+        console.log(similar);
+      }
+    };
+
+    if (recipeDetails) {
+      fetchSimilar();
+    }
+  }, []);
 
   if (!recipeDetails) {
     return <div>Loading...</div>;
@@ -71,6 +116,13 @@ const RecipeCardDetailsCustomize = () => {
               </li>
             ))}
           </ul>
+          {/* Display similar ingredients */}
+          {similarIngredients && (
+            <div>
+              <h2 className='font-bold text-2xl py-4'>Similar Ingredients</h2>
+              <p>{similarIngredients}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -78,16 +130,3 @@ const RecipeCardDetailsCustomize = () => {
 };
 
 export default RecipeCardDetailsCustomize;
-
-
-
-
-
-
-
-
-
-
-
-
-
