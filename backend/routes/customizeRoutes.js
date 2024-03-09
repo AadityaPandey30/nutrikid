@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.use(authController.protect);
 
-// router.route("/customize/:").post(); 
+router.route("/customize/").get(customizeController.generateRecipe); 
+
+router.route("/showSimilarIngredients").get(customizeController.getIngredients)
 
 module.exports = router;

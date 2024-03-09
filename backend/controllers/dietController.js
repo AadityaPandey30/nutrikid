@@ -1,24 +1,24 @@
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const gemini = require("../utils/gemini");
 const axios = require("axios");
 
 exports.getDiets = catchAsync(async (req, res, next) => {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const generationConfig = {
-    temperature: 0.7,
-    topP: 1,
-    topK: 1,
-    maxOutputTokens: 1000,
-  };
+  // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  // const generationConfig = {
+  //   temperature: 0.7,
+  //   topP: 1,
+  //   topK: 1,
+  //   maxOutputTokens: 1000,
+  // };
 
-  const model = genAI.getGenerativeModel({
-    model: "gemini-pro",
-    generationConfig,
-  });
+  // const model = genAI.getGenerativeModel({
+  //   model: "gemini-pro",
+  //   generationConfig,
+  // });
 
   const prompt = req.body.prompt;
-  const result = await model.generateContent(prompt);
+  const result = await gemini.generateContent(prompt);
   const data = await result.response;
 
   if (!data) {
