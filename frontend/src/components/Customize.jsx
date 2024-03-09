@@ -1,4 +1,4 @@
-import RecipeCard from "./smallComponents/RecipeCard"
+import RecipeCardCustomize from "./smallComponents/RecipeCardCustomize"
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -17,7 +17,7 @@ const Customize = ()=>{
   const fetchRecipes = async () => {
     try {
       const response = await axios.get(
-        'https://apis-new.foodoscope.com/recipe-search/recipe?searchText=all&page=0&pageSize=10',
+        'https://apis-new.foodoscope.com/recipe-search/recipe?searchText=all&page=1&pageSize=10',
         {
           headers: {
             'accept':'application/json',
@@ -31,6 +31,7 @@ const Customize = ()=>{
     const recipesArray = Array.isArray(response.data?.payload?.data) ? response.data.payload.data : [];
     setAllRecipes(recipesArray);
     setFilteredRecipes(recipesArray);
+    console.log(recipesArray)
   } catch (error) {
     console.error('Error fetching recipes:', error);
   }
@@ -70,7 +71,7 @@ const Customize = ()=>{
                 <h1 className="text-2xl py-4 font-semibold pt-8">Try these healthier alternatives</h1>
                 <div className="recipe-card-container py-2">
           {filteredRecipes.map((recipe) => (
-            <RecipeCard key={recipe.Recipe_id} recipe={recipe} />
+            <RecipeCardCustomize key={recipe.Recipe_id} recipe={recipe} />
           ))}
         </div>
             </div>

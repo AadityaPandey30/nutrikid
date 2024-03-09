@@ -13,6 +13,7 @@ import Customize from './components/Customize'
 import RecipeCardDetails from './components/smallComponents/RecipeCardDetails';
 import Plan from './components/smallComponents/Plan'
 import Footer from './components/Footer'
+import RecipeCardDetailsCustomize from './components/smallComponents/RecipeCardDetailCustomize'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path='/customize' element={<Customize />}/>
           <Route path='/kiddo' element={<Kiddo />}/>
           <Route path='/recipe/:id' element={<RecipeCardDetails />} />
+          <Route path='/recipecustomize/:id' element={<RecipeCardDetailsCustomize />} />
           <Route path='/cough/plan' element={<Plan />}/>
           <Route path='/fever/plan' element={<Plan />}/>
 
