@@ -1,88 +1,148 @@
-const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/appError");
-const Question = require("../models/quesModel");
-const Comment = require("../models/commentModel");
-const User = require("../models/userModel");
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-exports.postQuestion = catchAsync(async (req, res, next) => {
-  const newQues = await Question.create({
-    user: req.user.id,
-    body: req.body.body,
-  });
+const Connect = () => {
+  const [question, setQuestion] = useState("");
+  const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [questionsList, setQuestionsList] = useState([]);
 
-  if (!newQues) {
-    return next(new AppError("Error posting question!", 400));
-  }
+  useEffect(() => {
+    fetchQuestions(); // Fetch questions when the component mounts
+  }, []); // Empty dependency array ensures this effect runs only once
 
-  res.status(200).json({
-    status: "success",
-    ques: newQues,
-  });
-});
+  const fetchQuestions = async () => {
+    try {
+      const token = localStorage.getItem('jwt').trim();
+      const response = await axios.get("http://localhost:8000/api/v1/chat/community", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add a space between "Bearer" and the token
+        },
+      });
+      setQuestionsList(response.data.questions);
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
+  };
 
-exports.getAllQuestions = catchAsync(async (req, res, next) => {
-  const questions = await Question.find();
+  const handlePostQuestion = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('jwt').trim();
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/chat/community",
+        { body: question },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add a space between "Bearer" and the token
+          },
+        }
+      );
+      setQuestionsList([...questionsList, response.data]);
+    } catch (error) {
+      console.error("Error posting question:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  if (!questions) {
-    return next(new AppError("Error getting Questions.", 401));
-  }
+  const handlePostComment = async (questionId) => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('jwt').trim();
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/chat/community/${questionId}/comments`,
+        { body: comment },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add a space between "Bearer" and the token
+          },
+        }
+      );
+      const updatedQuestions = questionsList.map((q) => {
+        if (q._id === questionId) {
+          q.comments.push(response.data.comment);
+        }
+        return q;
+      });
+      setQuestionsList(updatedQuestions);
+    } catch (error) {
+      console.error("Error posting comment:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  res.status(200).json({
-    status: "success",
-    questions,
-  });
-});
+  return (
+    <div className="container px-[5%] py-8">
+      <div className="community">
+        <h1 className="text-3xl font-bold py-4">Ask the Community</h1>
+        <p className="text-gray-400">
+          Post your questions here and get advice from our community, which
+          includes pediatricians and nutritionists
+        </p>
+        <div className="border py-6 text-end w-[70%] min-w-[310px]">
+          <input
+            type="text"
+            className="px-2 py-3 rounded-half bg-slate-50 w-full h-fit"
+            placeholder="Ask a question. For example, 'How can I get my child to eat more fruits and vegetables?'"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          />
+          <br />
+          <button
+            className="bg-[#F5BF26] text-black font-bold px-8 py-2 my-2 mx-auto rounded-[10px] hover:bg-[#ffdb76]"
+            onClick={handlePostQuestion}
+            disabled={loading}
+          >
+            {loading ? "Posting..." : "Post"}
+          </button>
+        </div>
 
-exports.postComment = catchAsync(async (req, res, next) => {
-  const comment = Comment.create({
-    user: req.user.id,
-    body: req.body.body,
-    ques: req.params.questionId,
-  });
+        <div className="mt-8">
+          {questionsList.map((questionItem) => (
+            <QuestionTile
+              key={questionItem._id}
+              questionItem={questionItem}
+              comment={comment}
+              setComment={setComment}
+              loading={loading}
+              handlePostComment={handlePostComment}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
-  if (!comment) {
-    return next(new AppError("Error posting reply.", 401));
-  }
 
-  res.status(200).json({
-    status: "success",
-    comment,
-  });
-});
+const QuestionTile = ({ questionItem, comment, setComment, loading, handlePostComment }) => {
+  return (
+    <div className="border p-4 mb-6">
+      <div className="question">
+        <h3 className="text-lg font-bold">{questionItem.body}</h3>
+        {/* Input text field for posting comments */}
+        <input
+          type="text"
+          className="comment-input px-2 py-1 mt-2 rounded bg-gray-100 w-full"
+          placeholder="Write a comment..."
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        {/* Button to post the comment */}
+        <button
+          className="bg-[#F5BF26] text-black font-bold px-4 py-1 mt-2 rounded hover:bg-[#ffdb76]"
+          onClick={() => handlePostComment(questionItem._id)}
+          disabled={loading}
+        >
+          {loading ? "Posting..." : "Post Comment"}
+        </button>
+      </div>
+    </div>
+  );
+};
 
-exports.getThread = catchAsync(async (req, res, next) => {
-  // Retrieve the thread
-  const thread = await Question.findById(req.params.threadId);
+  
 
-  // Check if the thread exists
-  if (!thread) {
-    return next(new AppError("Could not find thread!", 404));
-  }
-
-  // Retrieve comments for the thread
-  const comments = await Comment.find({ ques: req.params.threadId });
-
-  // Initialize an array to store formatted comments
-  let commentList = [];
-
-  // Loop through each comment and retrieve user's name
-  for (const comment of comments) {
-    // Retrieve user's name using async/await
-    const username = await User.findById(comment.user).select("+name");
-
-    // Push the formatted comment to the list
-    commentList.push({
-      id: comment.id,
-      user: comment.user,
-      name: username ? username.name : '', // Check if username exists before accessing name
-      body: comment.body,
-    });
-  }
-
-  // Send the response
-  res.status(200).json({
-    status: "success",
-    data: { thread, commentList },
-  });
-});
-
+  export default Connect;
