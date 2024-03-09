@@ -33,8 +33,7 @@ function App() {
           <Route path='/kiddo' element={<Kiddo />}/>
           <Route path='/recipe/:id' element={<RecipeCardDetails />} />
           <Route path='/recipecustomize/:id' element={<RecipeCardDetailsCustomize />} />
-          <Route path='/cough/plan' element={<Plan />}/>
-          <Route path='/fever/plan' element={<Plan />}/>
+          <Route path='/plan' element={<Plan  />}/>
 
 
         </Routes>

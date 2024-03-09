@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(authController.protect);
 
-router.route("/getResponse").get(chatbotController.generateAI);
+router.route("/getResponse").post(chatbotController.generateAI);
 
 router
   .route("/community")

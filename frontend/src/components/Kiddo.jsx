@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import fever from "../images/fever.jpg";
 import cough from "../images/cough.jpg";
