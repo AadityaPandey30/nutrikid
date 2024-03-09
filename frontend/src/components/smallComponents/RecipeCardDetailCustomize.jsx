@@ -42,19 +42,43 @@ const RecipeCardDetailsCustomize = () => {
         }
       );
       const similarIngredients = response.data.data; // Correctly extract the similarIngredients array
-      setSimilarIngredients(similarIngredients); // Set the similar ingredients state
-      console.log(similarIngredients);
+      console.log('Similar Ingredients:', similarIngredients);
       return similarIngredients; // Return similar ingredients data
     } catch (error) {
       console.error('Error fetching similar ingredients:', error);
-      setSimilarIngredients(null); // Handle error by setting similar ingredients state to null
       return null;
     }
   };
   
+  // Function to fetch more dishes based on ingredients used
+  const fetchMoreDishes = async (ingredientUsed) => {
+    try {
+      const response = await axios.post(
+        'https://apis-new.foodoscope.com/recipe-search/recipesByIngredient?page=1&pageSize=10', 
+        {
+          ingredientUsed,
+          ingredientNotUsed: "",
+        },
+        {
+          headers: {
+            'accept': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const additionalDishes = response.data; // Assuming the response contains additional dishes
+      console.log('Additional Dishes:', additionalDishes);
+      return additionalDishes;
+    } catch (error) {
+      console.error('Error fetching more dishes:', error);
+      return [];
+    }
+  };
 
   const [recipeDetails, setRecipeDetails] = useState(null);
   const [similarIngredients, setSimilarIngredients] = useState(null);
+  const [additionalDishes, setAdditionalDishes] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,7 +88,6 @@ const RecipeCardDetailsCustomize = () => {
         const similar = await fetchSimilarIngredients(details.ingredients);
         if (similar) {
           setSimilarIngredients(similar);
-          console.log(similar);
         }
       } else {
         // Handle error or set state accordingly
@@ -75,19 +98,16 @@ const RecipeCardDetailsCustomize = () => {
   }, [id]);
 
   useEffect(() => {
-    // Fetch similar ingredients when the component mounts
-    const fetchSimilar = async () => {
-      const similar = await fetchSimilarIngredients(recipeDetails.ingredients);
-      if (similar) {
-        setSimilarIngredients(similar);
-        console.log(similar);
+    // Fetch more dishes based on similar ingredients when the component mounts
+    const fetchDishes = async () => {
+      if (similarIngredients) {
+        const moreDishes = await fetchMoreDishes(similarIngredients);
+        setAdditionalDishes(moreDishes);
       }
     };
 
-    if (recipeDetails) {
-      fetchSimilar();
-    }
-  }, []);
+    fetchDishes();
+  }, [similarIngredients]);
 
   if (!recipeDetails) {
     return <div>Loading...</div>;
@@ -121,6 +141,15 @@ const RecipeCardDetailsCustomize = () => {
             <div>
               <h2 className='font-bold text-2xl py-4'>Similar Ingredients</h2>
               <p>{similarIngredients}</p>
+            </div>
+          )}
+          {/* Display additional dishes */}
+          {additionalDishes.length > 0 && (
+            <div>
+              <h2 className='font-bold text-2xl py-4'>Additional Dishes</h2>
+              {additionalDishes.map((dish, index) => (
+                <p key={index}>{dish.name}</p>
+              ))}
             </div>
           )}
         </div>
