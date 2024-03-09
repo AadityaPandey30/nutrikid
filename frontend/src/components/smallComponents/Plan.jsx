@@ -1,3 +1,9 @@
+
+
+
+
+
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import breaki from "../../images/breaki.jpg";
@@ -21,7 +27,7 @@ const Plan = () => {
       
           // Define the parameters you want to send in the request body
           const requestBody = {
-            prompt: "Genrate the four time meal",
+            prompt: "Genrate the four time meal of a day on the  for the child having cough and little bit fever with the nutrient percentage the data is come in the format like the dish name dish nutrient why taken",
             // Add any other parameters you need
           };
       
@@ -31,6 +37,7 @@ const Plan = () => {
               Authorization: `Bearer${token}`,
             },
           });
+        //   ;
       
           // Handle the response as needed
           setMealPlan(response.data.data);
@@ -64,9 +71,9 @@ const Plan = () => {
         <h1 className="text-2xl font-semibold pt-2">Breakfast</h1>
         <div className="flex">
           <div className="basis-4/5 pb-4 pt-5">
-            <p className="text-gray-500">Total: 300 calories</p>
-            <h1 className="font-semibold py-2">Oatmeal with banana and walnuts</h1>
-            <p className="text-gray-500">Oatmeal with banana and walnuts</p>
+            <p className="text-gray-500">Oatmeal with banana and cinnamon** (50% carbs, 25% protein, 25% fat)</p>
+            <h1 className="font-semibold py-2">Oats provide carbohydrates for energy and fiber to support digestion</h1>
+            <p className="text-gray-500">Banana provides potassium and vitamin C to boost immunity.</p>
           </div>
           <img src={breaki} className="basis-[30%] w-[30%] py-5" alt="Breakfast" />
         </div>
@@ -84,9 +91,9 @@ const Plan = () => {
         <h1 className="text-2xl font-semibold pt-2">Lunch</h1>
         <div className="flex">
           <div className="basis-4/5 pb-4 pt-5 pr-4">
-            <p className="text-gray-500">Total: 500 calories</p>
-            <h1 className="font-semibold py-2">Turkey and cheese sandwich</h1>
-            <p className="text-gray-500">2 slices whole wheat bread, 2 oz turkey, 1 slice cheddar cheese, 1 tbsp mayonnaise, 1/2 cup baby carrots, 1/2 cup hummus</p>
+            <p className="text-gray-500">Chicken broth provides electrolytes and nutrients to support hydration.</p>
+            <h1 className="font-semibold py-2">Noodles provide carbohydrates for energy.</h1>
+            <p className="text-gray-500">Chicken provides protein to build and repair tissues.</p>
           </div>
           <img src={snack} className="basis-[30%] w-[30%] py-5" alt="Lunch" />
         </div>
@@ -95,8 +102,8 @@ const Plan = () => {
         <div className="flex">
           <div className="basis-4/5 pb-4 pt-5">
             <p className="text-gray-500">Total: 400 calories</p>
-            <h1 className="font-semibold py-2">Baked salmon with quinoa and steamed broccoli</h1>
-            <p className="text-gray-500">3 oz salmon, 1/2 cup quinoa, 1 cup steamed broccoli, 1 tbsp olive oil</p>
+            <h1 className="font-semibold py-2">Salmon is rich in omega-3 fatty acids, which have anti-inflammatory properties.</h1>
+            <p className="text-gray-500">Roasted vegetables (such as carrots, broccoli, and potatoes) provide vitamins, minerals, and fiber.</p>
           </div>
           <img src={dinner} className="basis-[30%] w-[30%] py-5" alt="Dinner" />
         </div>
