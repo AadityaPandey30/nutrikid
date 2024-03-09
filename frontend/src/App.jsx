@@ -34,8 +34,6 @@ function App() {
           <Route path='/recipe/:id' element={<RecipeCardDetails />} />
           <Route path='/recipecustomize/:id' element={<RecipeCardDetailsCustomize />} />
           <Route path='/plan' element={<Plan  />}/>
-
-
         </Routes>
         <Footer />
       </BrowserRouter>
