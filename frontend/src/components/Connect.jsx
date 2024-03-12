@@ -12,7 +12,7 @@ const Connect = () => {
 
   const fetchQuestions = async () => {
     try {
-      const token = localStorage.getItem('jwt').trim();
+      const token = localStorage.getItem('jwt');
       const response = await axios.get("http://localhost:8000/api/v1/chat/community", {
         headers: {
           Authorization: `Bearer${token}`, // Add a space between "Bearer" and the token
@@ -27,7 +27,7 @@ const Connect = () => {
   const handlePostQuestion = async (question) => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('jwt').trim();
+      const token = localStorage.getItem('jwt');
       const response = await axios.post(
         "http://localhost:8000/api/v1/chat/community",
         { body: question },

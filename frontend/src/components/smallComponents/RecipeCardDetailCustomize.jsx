@@ -118,7 +118,7 @@ const RecipeCardDetailsCustomize = () => {
       <h1 className='font-bold text-3xl text-center pb-4 pt-8'>{recipeDetails.Recipe_title}</h1>
       <div className="recipe-details-page m-auto w-fit">
         <div className='side1 text-center py-4'>
-          <img src={recipeDetails.img_url} alt={recipeDetails.Recipe_title} className='my-8 img-card' />
+          <img src={recipeDetails.img_url} alt={recipeDetails.Recipe_title} className='my-8 img-card m-auto' />
           <div className='details text-2xl'>
             <p className='text-gray-700'>Source: {recipeDetails.Source}</p>
             <p className='text-gray-700'>Calories: {recipeDetails.Calories} cal</p>
@@ -127,8 +127,8 @@ const RecipeCardDetailsCustomize = () => {
             <p className='text-gray-700'>Servings: {recipeDetails.servings}</p>
           </div>
         </div>
-        <div className='side2 py-4 flex'>
-          <div className='text-left basis-1/2 w-fit pr-5'>
+        <div className='side2 py-4 flex w-[60%] max-w-[800px] m-auto'>
+          <div className='text-left  pr-5 w-[60%]'>
           <h2 className='font-bold text-2xl py-4'>Ingredients</h2>
           <ul>
             {recipeDetails.ingredients.map((ingredient, index) => (
@@ -138,15 +138,14 @@ const RecipeCardDetailsCustomize = () => {
             ))}
           </ul>
           </div>
-          <div className='basis-1/2'>
+          <div className='basis-1/3'>
           {similarIngredients && (
             <div>
               <h2 className='font-bold text-2xl py-4'>Similar Ingredients</h2>
               <p>{similarIngredients}</p>
             </div>
           )}
-          </div>
-        </div>  
+
           {/* Display additional dishes */}
           {additionalDishes.length > 0 && (
             <div>
@@ -156,6 +155,9 @@ const RecipeCardDetailsCustomize = () => {
               ))}
             </div>
           )}
+          </div>
+        </div>  
+          
       </div>
     </div>
   );

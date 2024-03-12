@@ -1,5 +1,5 @@
-// Chatbot.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import robo from "../../images/robot.png";
 
 const Chatbot = () => {
@@ -7,6 +7,15 @@ const Chatbot = () => {
   const [roboSize, setRoboSize] = useState(20);
   const [inputText, setInputText] = useState('');
   const [chatContent, setChatContent] = useState([]);
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    // Retrieve token from local storage
+    const storedToken = localStorage.getItem('jwt');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
 
   const toggleChatbot = () => {
     setShowChatbot(!showChatbot);
@@ -17,9 +26,29 @@ const Chatbot = () => {
     setInputText(e.target.value);
   };
 
-  const handleSendClick = () => {
+  const handleSendClick = async () => {
     if (inputText.trim() !== '') {
-      setChatContent([...chatContent, inputText]);
+      // Add user message to chat content
+      const newChatContent = [...chatContent, inputText];
+      setChatContent(newChatContent);
+
+      // Make a POST request to the backend API with token in headers
+      try {
+        const response = await axios.post('http://localhost:8000/api/v1/chat/getResponse', { prompt: inputText }, {
+          headers: {
+            Authorization: `Bearer${token}`
+          }
+        });
+        const message = response.data.message;
+        console.log(response.data.message);
+
+        // Add AI response to chat content
+        const updatedChatContent = [...newChatContent, message];
+        setChatContent(updatedChatContent);
+      } catch (error) {
+        console.error('Error fetching AI response:', error);
+      }
+
       setInputText('');
     }
   };
