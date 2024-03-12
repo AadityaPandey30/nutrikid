@@ -59,7 +59,11 @@ const RecipeCardDetails = () => {
           <p className='text-gray-700'>Calories: {recipeDetails.Calories} cal</p>
           <p className='text-gray-700'>Carbohydrates: {recipeDetails['Carbohydrate, by difference (g)']} g</p>
           <p className='text-gray-700'>Cook Time: {recipeDetails.cook_time}</p>
+          <p className='text-gray-700'>Protein: {recipeDetails.protein}</p>
           <p className='text-gray-700'>Servings: {recipeDetails.servings}</p>
+          <p className='text-gray-700'>Energy: {recipeDetails.energykcal}</p>
+          <p className='text-gray-700'>Servings: {recipeDetails.servings}</p>
+          <p className='text-gray-700'>Region: {recipeDetails.region}</p>
           </div>
         </div>
       
