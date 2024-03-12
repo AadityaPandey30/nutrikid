@@ -127,7 +127,7 @@ const RecipeCardDetailsCustomize = () => {
             <p className='text-gray-700'>Servings: {recipeDetails.servings}</p>
           </div>
         </div>
-        <div className='side2 py-4 flex w-[60%] max-w-[800px] m-auto'>
+        <div className='side2 py-4 md:flex flex-col md:w-[60%] w-[90%] max-w-[800px] m-auto'>
           <div className='text-left  pr-5 w-[60%]'>
           <h2 className='font-bold text-2xl py-4'>Ingredients</h2>
           <ul>

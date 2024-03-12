@@ -1,7 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import fever from "../images/fever.jpg";
 import cough from "../images/cough.jpg";
+import axios from "axios";
 
 const Kiddo = () => {
   return (
@@ -18,18 +18,18 @@ const Kiddo = () => {
       </div>
       <h1 className="text-2xl font-semibold py-8">Common Health Issues</h1>
       <div className="diseases">
-        <div className="flex py-4">
-          <img src={fever} className="w-[50%] max-w-[300px] pr-5" alt="Fever" />
-          <h1 className="text-2xl font-semibold py-[60px] w-[50px]">Fever</h1>
+        <div className="md:flex flex-row py-4">
+          <img src={fever} className="`md:w-[50%] w-full max-w-[400px] pr-5" alt="Fever" />
+          <h1 className="text-2xl font-semibold md:py-[60px] py-1 w-[50px]">Fever</h1>
           <div className="text-end w-[200px]">
-            <Link to="/cough/plan?type=fever" className="bg-[#F5BF26] text-black font-bold px-5 py-2 my-[60px] ml-2 rounded-[10px] hover:bg-[#ffdb76]">View Plan</Link>
+            <Link to="/cough/plan" className="bg-[#F5BF26] text-black font-bold px-5 py-2 my-[60px] ml-2 rounded-[10px] hover:bg-[#ffdb76]">View Plan</Link>
           </div>
         </div>
-        <div className="flex py-4">
-          <img src={cough} className="w-[50%] max-w-[300px] pr-5" alt="Cough" />
-          <h1 className="text-2xl font-semibold py-[60px] w-[50px]">Cough</h1>
+        <div className="md:flex flex-row py-4">
+          <img src={cough} className="md:w-[50%] w-full max-w-[400px] pr-5" alt="Cough" />
+          <h1 className="text-2xl font-semibold md:py-[60px] py-1 w-[50px]">Cough</h1>
           <div className="text-end w-[200px]">
-            <Link to="/cough/plan?type=cough" className="bg-[#F5BF26] text-black font-bold px-5 py-2 my-[60px] ml-2 rounded-[10px] hover:bg-[#ffdb76]">View Plan</Link>
+            <Link to="/cough/plan" className="bg-[#F5BF26] text-black font-bold px-5 py-2 my-[60px] ml-2 rounded-[10px] hover:bg-[#ffdb76]">View Plan</Link>
           </div>
         </div>
       </div>

@@ -301,6 +301,9 @@ select:focus{
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.new-mask{
+  padding: 5%;
+}
 }
 
 

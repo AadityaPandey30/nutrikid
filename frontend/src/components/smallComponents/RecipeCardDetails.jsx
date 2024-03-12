@@ -47,13 +47,13 @@ const RecipeCardDetails = () => {
   }
 
   return (
-    <div className='container px-[5%] py-10'>
+    <div className='container px-[5%] py-10 m-auto'>
       <h1 className='font-bold text-3xl text-center pb-4 pt-8'>{recipeDetails.Recipe_title}</h1>
-      <div className="recipe-details-page">
+      <div className="recipe-details-page w-fit m-auto">
         <div className='side1'>
           <img src={recipeDetails.img_url} alt={recipeDetails.Recipe_title} className='my-8 img-card' />
         </div>
-        <div className='side2'>
+        <div className='side2 text-left'>
           <div className='details'>
           <p className='text-gray-700'>Source: {recipeDetails.Source}</p>
           <p className='text-gray-700'>Calories: {recipeDetails.Calories} cal</p>
