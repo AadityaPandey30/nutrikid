@@ -41,6 +41,8 @@ cd nutrikids
 npm install
 Obtain API keys for RecipeDB, FlavourDB, GPT 3.5, and Gemini.
 
+**Demo Link**
+https://drive.google.com/file/d/1eKRHUSLPM2V-SeDml0XetiDveoHFa7QM/view?usp=sharing
 
 **Acknowledgements**
 
@@ -52,8 +54,8 @@ OpenAI for providing GPT 3.5 and Gemini APIs.
 
 Aaditya Pandey - Handled Frontend and Backend Integrations
 
-Vivek Pal - Handled Chatbot and API Integration
+Vivek Pal - Handled API Integration
 
-Priyanshu Bisht - Handled the Backend part
+Priyanshu Bisht - Crafted some Backend APIs
 
 Vinayak Shishodia - Made the Figma design for the project.
