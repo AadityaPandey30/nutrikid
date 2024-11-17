@@ -1,8 +1,8 @@
-****NutriKids - Customized Child Nutrition Website****
+## NutriKids - Customized Child Nutrition Website
 
 NutriKids is a web application designed to assist parents in providing their children with proper nutrition through personalized meal planning. The platform offers features such as recipe customization, disease or allergy-specific meal planning, and access to a vast database of recipes. NutriKids integrates various APIs including RecipeDB, FlavourDB provided by IIIT Delhi, GPT 3.5, and Gemini to offer a comprehensive solution for child nutrition management.
 
-**Features**
+### Features
 
 Recipe Customization: Parents can customize recipes according to their child's preferences and dietary requirements.
 
@@ -14,7 +14,7 @@ Flavour Database Integration: Incorporates FlavourDB API to enhance recipe recom
 
 Chatbot Functionality: Employs GPT 3.5 and Gemini API to provide interactive chatbot assistance for personalized meal planning and nutrition queries.
 
-**APIs Utilized**
+### APIs Utilized
 RecipeDB: Provides access to a vast collection of recipes categorized by various parameters such as region, subregion, nutrients, and ingredients.
 
 FlavourDB: Enhances flavor profiles and recipe recommendations.
@@ -52,7 +52,7 @@ OpenAI for providing GPT 3.5 and Gemini APIs.
 
 **Contributors**
 
-Aaditya Pandey - Handled Frontend and Backend Integrations
+Aaditya Pandey - Handled Complete Frontend and Backend Integrations
 
 Vivek Pal - Handled API Integration
 
